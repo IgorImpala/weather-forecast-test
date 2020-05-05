@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import PropTypes from 'prop-types';
 import {
     kelvinToCelciusAndFarenheit,
     metersPerSecToKmsPerHourAndMilesPerHour,
@@ -8,7 +8,6 @@ import {
     timeStampToTheDayOfTheWeek,
     iconUrl
 } from '../../utils/utils'
-
 
 import { fetchWeatherData } from '../../actions/fetchWeatherData';
 
@@ -24,10 +23,10 @@ const WeatherDisplayComponent = (props) => {
     };
 
     return (
-        <div className="col-2">
-            <div className="card"  >
+        <div className="col-12 col-sm-6 col-md-2">
+            <div className="card my-1" data-test="weatherDisplayComponent">
                 <div  className="card-body" >
-                    <h5 className="card-title">{timeStampToTheDayOfTheWeek(data.dt)}</h5>
+                    <h5 className="card-title" data-test="dayOfTheWeek">{timeStampToTheDayOfTheWeek(data.dt)}</h5>
                     <div>
                         min {kelvinToCelciusAndFarenheit(data.main.temp_min)}
                     </div>
@@ -58,6 +57,12 @@ const WeatherDisplayComponent = (props) => {
             </div>
         </div>
     );
+};
+
+WeatherDisplayComponent.propTypes = {
+    data: PropTypes.object,
+    location: PropTypes.object,
+    fetchWeatherData: PropTypes.func
 };
 
 // Set default props

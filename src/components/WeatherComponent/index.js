@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types';
 import SearchForm from './searchForm';
 import { ReactComponent as Logo } from "../../assets/graphics/logo.svg"
 import WeatherDisplayComponent from './WeatherDisplayComponent';
@@ -18,7 +19,7 @@ const WeatherComponent = (props) => {
     ));
 
     return (
-        <div className="container-fluid pt-3">
+        <div className="container-fluid pt-3" data-test="weatherComponent">
             <div className="row justify-content-center">
                 <div className="col-2 pt-1">
                     <Logo />
@@ -38,6 +39,14 @@ const WeatherComponent = (props) => {
             <HoursWeatherComponent data={oneDayHoursWeatherData} />
         </div>
     )
+};
+
+WeatherComponent.propTypes = {
+    fiveDaysWeatherData: PropTypes.array,
+    oneDayHoursWeatherData: PropTypes.array,
+    fetchingData: PropTypes.bool,
+    errorMessage: PropTypes.string,
+    location:PropTypes.object
 };
 
 // Set default props

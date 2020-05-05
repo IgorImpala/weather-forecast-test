@@ -1,26 +1,17 @@
 import axios from 'axios';
-import {
-    FETCH_WEATHER_DATA_SUCCEEDED,
-    FETCH_WEATHER_DATA_ERROR,
-    SET_FIVE_DAYS_WEATHER_DATA,
-    SET_ONE_DAY_HOURS_WEATHER_DATA,
-    RESET_ONE_DAY_HOURS_WEATHER_DATA,
-    SET_LOCATION,
-    DATA_REQUEST_SENT,
-    DATA_RESPONSE_RECEIVED
-} from './types';
+import { types } from './types';
 
 //define actions
 export const fetchWeatherData = (parameters) => dispatch => {
     dispatch({
-        type: DATA_REQUEST_SENT
+        type: types.DATA_REQUEST_SENT
     });
 
     axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${parameters.cityName},${parameters.country}&appid=987c66d88c0d9ba6e87f56cf189da6ba`)
         .then((response) => {
 
             dispatch({
-                type: FETCH_WEATHER_DATA_SUCCEEDED,
+                type: types.FETCH_WEATHER_DATA_SUCCEEDED,
                 payload: response.data
             });
 
@@ -45,21 +36,21 @@ export const fetchWeatherData = (parameters) => dispatch => {
                 const location = response.data.city;
 
                 dispatch({
-                    type: DATA_RESPONSE_RECEIVED
+                    type: types.DATA_RESPONSE_RECEIVED
                 });
 
                 dispatch({
-                    type: SET_FIVE_DAYS_WEATHER_DATA,
+                    type: types.SET_FIVE_DAYS_WEATHER_DATA,
                     payload: fiveDaysWeatherData
                 });
 
                 dispatch({
-                    type: SET_LOCATION,
+                    type: types.SET_LOCATION,
                     payload: location
                 });
 
                 dispatch({
-                    type: RESET_ONE_DAY_HOURS_WEATHER_DATA
+                    type: types.RESET_ONE_DAY_HOURS_WEATHER_DATA
                 });
             }
 
@@ -69,11 +60,11 @@ export const fetchWeatherData = (parameters) => dispatch => {
                 const oneDayHoursWeatherData = findDataInArray(response.data.list, 0, 10, 'dt_txt', date);
 
                 dispatch({
-                    type: DATA_RESPONSE_RECEIVED
+                    type: types.DATA_RESPONSE_RECEIVED
                 });
 
                 dispatch({
-                    type: SET_ONE_DAY_HOURS_WEATHER_DATA,
+                    type: types.SET_ONE_DAY_HOURS_WEATHER_DATA,
                     payload: oneDayHoursWeatherData
                 })
             }
@@ -82,7 +73,7 @@ export const fetchWeatherData = (parameters) => dispatch => {
         .catch(err => {
 
              dispatch({
-                 type: DATA_RESPONSE_RECEIVED
+                 type: types.DATA_RESPONSE_RECEIVED
              });
 
             if (err.response) {
@@ -90,7 +81,7 @@ export const fetchWeatherData = (parameters) => dispatch => {
                 const errorMessage = err.response.data.message;
 
                 dispatch({
-                    type: FETCH_WEATHER_DATA_ERROR,
+                    type: types.FETCH_WEATHER_DATA_ERROR,
                     payload: errorMessage
                 });
 
@@ -99,7 +90,7 @@ export const fetchWeatherData = (parameters) => dispatch => {
                 const errorMessage = 'Check your internet connection';
 
                 dispatch({
-                    type: FETCH_WEATHER_DATA_ERROR,
+                    type: types.FETCH_WEATHER_DATA_ERROR,
                     payload: errorMessage
                 });
             }

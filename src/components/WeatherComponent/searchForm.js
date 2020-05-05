@@ -34,7 +34,7 @@ class SearchForm extends Component{
 
     render(){
         return(
-            <div className="col-10">
+            <div className="col-10" data-test="searchForm">
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <div className="input-group mb-3">

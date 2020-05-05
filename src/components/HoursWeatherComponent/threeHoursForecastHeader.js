@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const ThreeHoursForecastHeader = (props) => {
 
@@ -33,6 +34,10 @@ const ThreeHoursForecastHeader = (props) => {
             </div>);
     else
         return null;
+};
+
+ThreeHoursForecastHeader.propTypes = {
+    haveData: PropTypes.number
 };
 
 // Set default props

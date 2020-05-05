@@ -1,8 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import HoursWeatherDisplayComponent from './HoursWeatherDisplayComponent';
-
 import ThreeHoursForecastHeader from './threeHoursForecastHeader';
-
 import { timeStampToTheDayOfTheWeek, getDate } from '../../utils/utils';
 
 const HoursWeatherComponent = (props) => {
@@ -24,6 +23,10 @@ const HoursWeatherComponent = (props) => {
             </div>
         </div>
     )
+};
+
+HoursWeatherComponent.propTypes = {
+    data: PropTypes.array
 };
 
 // Set default props
